@@ -4,7 +4,7 @@ __pycache__/
 *.pyo
 
 # Packaging/build
-datashadric-build-test-upload_instructions.bat
+datashadric-build-test-upload_instructions.*
 build/
 dist/
 *.egg-info/

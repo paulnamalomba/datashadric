@@ -21,9 +21,10 @@ Basic Usage:
 >>> from datashadric.dataframing import df_check_na_values
 >>> from datashadric.stochastics import df_gaussian_checks
 >>> from datashadric.plotters import df_boxplotter
+>>> from datashadric.aiagents import ai_generate_image
 """
 
-__version__ = "0.2.1"
+__version__ = "0.2.2b"
 __author__ = "Paul Namlaomba (GitHub: diversecellar)"
 __email__ = "kabwenzenamalomba@gmail.com"
 

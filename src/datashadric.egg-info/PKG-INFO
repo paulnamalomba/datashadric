@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: datashadric
-Version: 0.2.1
+Version: 0.2.2b0
 Summary: An exploratory data science toolkit for analysis, machine learning, multimodal ai agents for text and image processing, and visualization (Apache Superset)
 Author-email: "Paul Namalomba (GitHub: paulnamalomba)" <kabwenzenamalomba@gmail.com>
 Maintainer-email: "Paul Namalomba (GitHub: paulnamalomba)" <kabwenzenamalomba@gmail.com>
@@ -47,22 +47,25 @@ Classifier: Topic :: Software Development :: Libraries :: Python Modules
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
 License-File: LICENSE
-Requires-Dist: pandas>=1.3.0
-Requires-Dist: numpy>=1.20.0
-Requires-Dist: scikit-learn>=1.0.0
-Requires-Dist: matplotlib>=3.4.0
-Requires-Dist: seaborn>=0.11.0
-Requires-Dist: scipy>=1.7.0
-Requires-Dist: statsmodels>=0.12.0
-Requires-Dist: plotly>=5.0.0
-Requires-Dist: apache-superset>=5.0.0
-Requires-Dist: google-generativeai>=0.8.0
+Requires-Dist: pandas==2.0.3
+Requires-Dist: cmake
+Requires-Dist: numpy
+Requires-Dist: scikit-learn
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: scipy
+Requires-Dist: statsmodels
+Requires-Dist: plotly
+Requires-Dist: google-generativeai
 Provides-Extra: dev
 Requires-Dist: pytest>=6.0; extra == "dev"
 Requires-Dist: pytest-cov>=2.0; extra == "dev"
 Requires-Dist: black>=21.0; extra == "dev"
 Requires-Dist: flake8>=3.8; extra == "dev"
 Requires-Dist: mypy>=0.900; extra == "dev"
+Provides-Extra: viz
+Requires-Dist: apache-superset>=5.0.0; extra == "viz"
+Requires-Dist: pyarrow>=15.0.0; extra == "viz"
 Provides-Extra: docs
 Requires-Dist: sphinx>=4.0; extra == "docs"
 Requires-Dist: sphinx-rtd-theme>=1.0; extra == "docs"
