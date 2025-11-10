@@ -1,5 +1,5 @@
 # Core dependencies for datashadric package
-pandas==2.0.3
+pandas
 cmake
 numpy
 scikit-learn

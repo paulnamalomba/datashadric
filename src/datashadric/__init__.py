@@ -24,7 +24,7 @@ Basic Usage:
 >>> from datashadric.aiagents import ai_generate_image
 """
 
-__version__ = "0.2.2b"
+__version__ = "0.2.3"
 __author__ = "Paul Namlaomba (GitHub: diversecellar)"
 __email__ = "kabwenzenamalomba@gmail.com"
 

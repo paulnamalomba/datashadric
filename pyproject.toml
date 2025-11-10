@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "datashadric"
-version = "0.2.2b"
+version = "0.2.3"
 description = "An exploratory data science toolkit for analysis, machine learning, multimodal ai agents for text and image processing, and visualization (Apache Superset)"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -33,7 +33,7 @@ classifiers = [
 keywords = ["data science", "machine learning", "statistics", "visualization", "pandas", "analysis"]
 requires-python = ">=3.8"
 dependencies = [
-    "pandas==2.0.3",
+    "pandas",
     "cmake",
     "numpy",
     "scikit-learn",

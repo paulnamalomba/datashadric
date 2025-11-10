@@ -235,15 +235,11 @@ If you encounter any problems or have questions, please file an issue on the [Gi
 - Added user optionality for saving plots to files in plotters module
 - Updated documentation
 
-### Version: 0.2.0
-### Release Date: 24 October 2025
+### Version: 0.2.3
+### Release Date: 10 November 2025
 - Added image annotation when detecting outliers using AI-assisted bounding box generation
 - Enhanced outlier detection and removal functions in data-processor module
 - Added use of AI agents to assist with data analysis and visualization tasks (needs user to store their API keys in system environment variables)
-- Updated documentation
-
-### Version: 0.2.1
-### Release Date: 10 November 2025
 - Added Apache Superset as an additional visualization dependency
 - Minor bug fixes and enhancements in dataframing and plotters modules
 - Updated documentation

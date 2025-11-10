@@ -20,8 +20,8 @@ import google.generativeai as genai
 from PIL import Image
 
 # Some imports from datashadric package
-from datashadric.dataframing import dsdf
-from datashadric.plotters import dsplt
+import datashadric.dataframing as dsdf
+import datashadric.plotters as dsplt
 
 
 def ai_generate_text(prompt: str, model: str = "gemini-2.5-flash", max_tokens: int = 150) -> str:
@@ -61,11 +61,15 @@ def ai_visual_recognition(image_path: str, model: str = "gemini-2.5-flash") -> s
     return response['description']
 
 
-def ai_analyze_plot_data_with_vision(df: Any, excel_path=None, image_path=None, col_x=None, col_y=None, df=None, prompt: str = None) -> str:
+def ai_analyze_plot_data_with_vision(df: Any = None, excel_path=None, image_path=None, col_x=None, col_y=None, prompt: str = "") -> str:
     """Analyze data using AI with a generated plot"""
     # Analyze plot with AI Vision
     ai_provider = "gemini"
     genai.api_key = os.getenv("GEMINI_API_KEY")
+    if df is None:
+        df = dsdf.df_load_dataset(excel_path)
+    else:
+        df = df
     if image_path is None:
         image = dsplt.df_scatter_plotter(df, col_x, col_y, save_path="temp_plot.png")
         image_path = "temp_plot.png"
@@ -73,7 +77,7 @@ def ai_analyze_plot_data_with_vision(df: Any, excel_path=None, image_path=None, 
         image_path = image_path
     with open(image_path, "rb") as image_file:
         image_data = image_file.read()
-    if prompt is None:
+    if prompt == "":
         prompt = (
             "You are an expert Data Scientist, and you are given a task to Identify and describe any outlier or anomalous points in this plot, we want to have well-defined data, that fits trends that are easy to visualise inorder to aid in gaining insights from the experiment. "
             "The outliers are often as follows: "
@@ -134,11 +138,15 @@ def ai_analyze_plot_data_with_vision(df: Any, excel_path=None, image_path=None, 
     print("_" * 75)
     return df
 
-def ai_analyze_plot_data_with_bounding_boxes(df: Any, excel_path=None, image_path=None, col_x=None, col_y=None, df=None, prompt: str = None) -> str:
+def ai_analyze_plot_data_with_bounding_boxes(df: Any = None, excel_path=None, image_path=None, col_x=None, col_y=None, prompt: str = "") -> str:
     """Analyze data using AI with a generated plot and return bounding boxes of anomalies"""    
     # Analyze plot with AI
     ai_provider = "gemini"
     genai.api_key = os.getenv("GEMINI_API_KEY")
+    if df is None:
+        df = dsdf.df_load_dataset(excel_path)
+    else:
+        df = df
     if image_path is None:
         image = dsplt.df_scatter_plotter(df, col_x, col_y, save_path="temp_plot.png")
         image_path = "temp_plot.png"
@@ -146,7 +154,7 @@ def ai_analyze_plot_data_with_bounding_boxes(df: Any, excel_path=None, image_pat
         image_path = image_path
     with open(image_path, "rb") as image_file:
         image_data = image_file.read()
-        if prompt is None:
+        if prompt == "":
             prompt = (
                 "You are an expert Data Scientist, and you are given a task to Identify and describe any outlier or anomalous points in this plot, we want to have well-defined data, that fits trends that are easy to visualise inorder to aid in gaining insights from the experiment. "
                 "The outliers are often as follows: "

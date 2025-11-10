@@ -1,5 +1,5 @@
 # Core dependencies only - minimum required to run datashadric
-pandas==2.0.3
+pandas
 cmake
 numpy
 scikit-learn
