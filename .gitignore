@@ -36,3 +36,5 @@ ENV/
 .idea/
 Thumbs.db
 .DS_Store
+.gitignore
+err*
