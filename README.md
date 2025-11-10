@@ -6,11 +6,13 @@ An exploratory Python toolkit for data science, machine learning, statistical an
 
 ### **Paul Namalomba - University of Cape Town**
   - SESKA Computational Engineer
+  - Software Developer
   - PhD Candidate (Civil Engineering Spec. Computational and Applied Mechanics)
+  - Email: [kabwenzenamalomba@gmail.com](mailto:kabwenzenamalomba@gmail.com)
 
 ## Overview
 
-`datashadric` provides a collection of well-organized modules for common data science tasks, from data cleaning and exploration to machine learning model building, sunsupervised and supervised classification and statistical analysis and testing. The package is designed with readability and ease-of-use in mind, making complex data science workflows more accessible and easier to write for end-use analysts.
+`datashadric` provides a collection of well-organized modules for common data science tasks, from data cleaning and exploration to machine learning model building, unsupervised and supervised classification and statistical analysis and testing. The package is designed with readability and ease-of-use in mind, making complex data science workflows more accessible and easier to write for end-use analysts.
 
 ## Features
 
@@ -29,14 +31,14 @@ pip install datashadric
 
 ### From Source
 ```bash
-git clone https://github.com/diversecellar/datashadric.git
+git clone https://github.com/paulnamalomba/datashadric.git
 cd datashadric
 pip install .
 ```
 
 ### Development Installation
 ```bash
-git clone https://github.com/diversecellar/datashadric.git
+git clone https://github.com/paulnamalomba/datashadric.git
 cd datashadric
 pip install -e ".[dev]"
 ```
@@ -50,6 +52,8 @@ from datashadric.regression import lr_ols_model
 from datashadric.dataframing import df_check_na_values
 from datashadric.stochastics import df_gaussian_checks
 from datashadric.plotters import df_boxplotter
+from datashadric.aiagents import ai_analyze_plot_data_with_vision
+from datashadric.aiagents import ai_data_insights_summary
 
 # load your data
 df = pd.read_csv('your_data.csv')
@@ -193,7 +197,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-If you encounter any problems or have questions, please file an issue on the [GitHub repository](https://github.com/diversecellar/datashadric.git).
+If you encounter any problems or have questions, please file an issue on the [GitHub repository](https://github.com/paulnamalomba/datashadric.git).
 
 ## Changelog
 
@@ -229,4 +233,17 @@ If you encounter any problems or have questions, please file an issue on the [Gi
 - Minor bug fixes
 - Minor enhancements to user optionality in many functions for mlearning, stochastics and dataframing modules
 - Added user optionality for saving plots to files in plotters module
+- Updated documentation
+
+### Version: 0.2.0
+### Release Date: 24 October 2025
+- Added image annotation when detecting outliers using AI-assisted bounding box generation
+- Enhanced outlier detection and removal functions in data-processor module
+- Added use of AI agents to assist with data analysis and visualization tasks (needs user to store their API keys in system environment variables)
+- Updated documentation
+
+### Version: 0.2.1
+### Release Date: 10 November 2025
+- Added Apache Superset as an additional visualization dependency
+- Minor bug fixes and enhancements in dataframing and plotters modules
 - Updated documentation

@@ -9,6 +9,7 @@ statsmodels>=0.12.0
 
 # Additional visualization
 plotly>=5.0.0
+apache-superset>=5.0.0
 
 # Testing dependencies
 pytest>=6.0
@@ -26,3 +27,8 @@ twine>=4.0.0
 # Documentation (optional)
 sphinx>=4.0
 sphinx-rtd-theme>=1.0
+
+# AI agent integration (optional)
+openai>=0.27.0
+anthropic>=3.0.0
+google-generativeai>=0.3.0

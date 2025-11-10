@@ -13,6 +13,18 @@ import numpy as np
 import unidecode
 
 
+def df_load_dataset(excel_path: str, data_separator: str = None, header: int = 0):
+    """load dataset from excel file"""
+    # usage: df_load_dataset('data.xlsx')
+    # input: excel_path - path to excel file
+    # output: pandas DataFrame loaded from excel file
+    if data_separator is None:
+        df = pd.read_excel(excel_path, header=header)
+    else:
+        df = pd.read_excel(excel_path, sep=data_separator, header=header)
+    return df
+
+
 def df_print_row_and_columns(df_name):
     """print the number of rows and columns in a dataframe"""
     # usage: df_print_row_and_columns(df)

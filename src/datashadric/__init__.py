@@ -23,7 +23,7 @@ Basic Usage:
 >>> from datashadric.plotters import df_boxplotter
 """
 
-__version__ = "0.1.4"
+__version__ = "0.2.1"
 __author__ = "Paul Namlaomba (GitHub: diversecellar)"
 __email__ = "kabwenzenamalomba@gmail.com"
 
@@ -33,6 +33,7 @@ from . import regression
 from . import dataframing
 from . import stochastics
 from . import plotters
+from . import aiagents
 
 # define what gets imported with "from datashadric import *"
 __all__ = [
@@ -40,5 +41,6 @@ __all__ = [
     'regression', 
     'dataframing',
     'stochastics',
-    'plotters'
+    'plotters',
+    'aiagents'
 ]

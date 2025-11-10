@@ -188,36 +188,36 @@ def df_residual_based_filtering(df_name, col_actual, col_predicted, threshold):
     return filtered_df
 
 
-def df_zscore_based_filtering(df_name, x_col, y_col, z_threshold=1.5, plot_zscores_data=False, save_path=None):
+def df_zscore_based_filtering(df_name, col_x, col_y, z_threshold=1.5, plot_zscores_data=False, save_path=None):
     """filter data based on Z-scores of two columns"""
-    # usage: df_zscore_based_filtering(df, 'x_col', 'y_col', z_threshold=1.5)
-    # input: df_name - pandas DataFrame, x_col - first numerical column name, y_col - second numerical column name, z_threshold - Z-score threshold
+    # usage: df_zscore_based_filtering(df, 'col_x', 'col_y', z_threshold=1.5)
+    # input: df_name - pandas DataFrame, col_x - first numerical column name, col_y - second numerical column name, z_threshold - Z-score threshold
     # output: filtered DataFrame with Z-scores within the threshold for both columns
-    data = df_name[[x_col, y_col]].dropna()
+    data = df_name[[col_x, col_y]].dropna()
     z_scores = stats.zscore(data)
     
-    # Filter by Z-score of x_col only (first column of z_scores)
-    mask = z_scores[:, 0] < z_threshold  # Only use x_col Z-scores for filtering
+    # Filter by Z-score of col_x only (first column of z_scores)
+    mask = z_scores[:, 0] < z_threshold  # Only use col_x Z-scores for filtering
     filtered_df = data[mask]
 
     if plot_zscores_data:
         if save_path:
-            df_plot_zscores(df_name, z_scores, x_col, y_col, save_path)
+            df_plot_zscores(df_name, z_scores, col_x, col_y, save_path)
         else:
-            df_plot_zscores(df_name, z_scores, x_col, y_col)
+            df_plot_zscores(df_name, z_scores, col_x, col_y)
     
     return filtered_df, z_scores
 
 
-def df_plot_zscores(df, z_scores, x_col, y_col, save_path=None):
+def df_plot_zscores(df, z_scores, col_x, col_y, save_path=None):
     """plot Z-scores for two columns"""
-    # usage: df_plot_zscores(df, z_scores, 'x_col', 'y_col')
-    # or df_plot_zscores(df, z_scores, 'x_col', 'y_col', 'save_path.png')
-    # input: df - original pandas DataFrame, z_scores - array of Z-scores, x_col - first numerical column name, y_col - second numerical column name, save_path - optional path to save the plot
+    # usage: df_plot_zscores(df, z_scores, 'col_x', 'col_y')
+    # or df_plot_zscores(df, z_scores, 'col_x', 'col_y', 'save_path.png')
+    # input: df - original pandas DataFrame, z_scores - array of Z-scores, col_x - first numerical column name, col_y - second numerical column name, save_path - optional path to save the plot
     # output: scatter plot of Z-scores for both columns
     plt.figure(figsize=(10, 6))
-    plt.scatter(df.index, z_scores[:, 0], label=f'Z-scores {x_col}', alpha=0.5)
-    plt.scatter(df.index, z_scores[:, 1], label=f'Z-scores {y_col}', alpha=0.5)
+    plt.scatter(df.index, z_scores[:, 0], label=f'Z-scores {col_x}', alpha=0.5)
+    plt.scatter(df.index, z_scores[:, 1], label=f'Z-scores {col_y}', alpha=0.5)
     plt.axhline(0, color='black', linestyle='--', linewidth=1)
     plt.axhline(1.5, color='red', linestyle='--', linewidth=1, label='Threshold (1.5)')
     plt.axhline(-1.5, color='red', linestyle='--', linewidth=1)
@@ -233,43 +233,43 @@ def df_plot_zscores(df, z_scores, x_col, y_col, save_path=None):
     return None
 
 
-def df_ds_score_filtering(df_name, x_col_name, y_col_name, ds_score_tuner=0.01, log_base=10, keep_scores_data=False, keep_normed_data=False):
+def df_ds_score_filtering(df_name, col_x_name, col_y_name, ds_score_tuner=0.01, log_base=10, keep_scores_data=False, keep_normed_data=False):
     """filter data based on my custom Data Shadric statistic score filtering"""
-    # usage: df_ds_score_filtering(df, 'x_col', 'y_col', ds_score_tuner=0.01, log_base=10)
-    # input: df_name - pandas DataFrame, x_col_name - first column name, y_col_name - second column name, ds_score_tuner - score tuning parameter (lower = less filtering/more data retained), log_base - logarithm base for transformation (default: 10)
+    # usage: df_ds_score_filtering(df, 'col_x', 'col_y', ds_score_tuner=0.01, log_base=10)
+    # input: df_name - pandas DataFrame, col_x_name - first column name, col_y_name - second column name, ds_score_tuner - score tuning parameter (lower = less filtering/more data retained), log_base - logarithm base for transformation (default: 10)
     # output: filtered DataFrame with scores above the threshold, optionally with log-normalised columns if keep_normed_data is True
     # optionally returns the ds_score series if keep_scores_data is True
 
     # Apply log transformation
     df = df_name.copy() # dataset
-    x_max = df[x_col_name].max()
-    y_min = df[y_col_name].min()
-    x_normalised = (x_max - df[x_col_name]) / (x_max - df[x_col_name].min())
-    y_normalised = (df[y_col_name] - y_min) / (df[y_col_name].max() - y_min)
+    x_max = df[col_x_name].max()
+    y_min = df[col_y_name].min()
+    x_normalised = (x_max - df[col_x_name]) / (x_max - df[col_x_name].min())
+    y_normalised = (df[col_y_name] - y_min) / (df[col_y_name].max() - y_min)
     x_log_normalised = np.log1p(x_normalised) / np.log(log_base)
     y_log_normalised = np.log1p(y_normalised) / np.log(log_base)
-    df[f"{x_col_name}_lognorm"] = x_log_normalised
-    df[f"{y_col_name}_lognorm"] = y_log_normalised
+    df[f"{col_x_name}_lognorm"] = x_log_normalised
+    df[f"{col_y_name}_lognorm"] = y_log_normalised
 
     # Calculate Z-scores
-    ds_score = df[f"{x_col_name}_lognorm"] * df[f"{y_col_name}_lognorm"]
+    ds_score = df[f"{col_x_name}_lognorm"] * df[f"{col_y_name}_lognorm"]
 
-    # Filter by ds-score of x_col only (first column of z_scores)
+    # Filter by ds-score of col_x only (first column of z_scores)
     print(f"Applying DS-score filtering with threshold tuner: {ds_score_tuner}...")
-    mask = ds_score > (ds_score.max() * ds_score_tuner)  # Only use x_col Z-scores for filtering
+    mask = ds_score > (ds_score.max() * ds_score_tuner)  # Only use col_x Z-scores for filtering
     df = df[mask]
 
     # Drop intermediate log-normalised columns
     if not keep_scores_data:
         if not keep_normed_data:
-            df = datashadric.dataframing.df_drop_multicol(df, [f"{x_col_name}_lognorm", f"{y_col_name}_lognorm"])
+            df = datashadric.dataframing.df_drop_multicol(df, [f"{col_x_name}_lognorm", f"{col_y_name}_lognorm"])
             return df
 
         return df
 
     else:
         if not keep_normed_data:
-            df = datashadric.dataframing.df_drop_multicol(df, [f"{x_col_name}_lognorm", f"{y_col_name}_lognorm"])
+            df = datashadric.dataframing.df_drop_multicol(df, [f"{col_x_name}_lognorm", f"{col_y_name}_lognorm"])
             return df, ds_score
 
         return df, ds_score

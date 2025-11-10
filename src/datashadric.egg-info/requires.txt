@@ -6,6 +6,8 @@ seaborn>=0.11.0
 scipy>=1.7.0
 statsmodels>=0.12.0
 plotly>=5.0.0
+apache-superset>=5.0.0
+google-generativeai>=0.8.0
 
 [dev]
 pytest>=6.0
