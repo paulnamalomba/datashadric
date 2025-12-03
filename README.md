@@ -1,16 +1,21 @@
 # datashadric - Python Toolkit for Machine Learning and Advanced Data Analytics
 
-An exploratory Python toolkit for data science, machine learning, statistical analysis, and visualization.
+**Last updated**: November 10, 2025<br>
+**Author**: [Paul Namalomba](https://github.com/paulnamalomba)<br>
+  - SESKA Computational Engineer<br>
+  - Software Developer<br>
+  - PhD Candidate (Civil Engineering Spec. Computational and Applied Mechanics)<br>
+**Version**: 0.2.3 (Nov 2025)<br>
+**Contact**: [kabwenzenamalomba@gmail.com](kabwenzenamalomba@gmail.com)
 
-## Author
-
-### **Paul Namalomba - University of Cape Town**
-  - SESKA Computational Engineer
-  - Software Developer
-  - PhD Candidate (Civil Engineering Spec. Computational and Applied Mechanics)
-  - Email: [kabwenzenamalomba@gmail.com](mailto:kabwenzenamalomba@gmail.com)
-
-## Overview
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-1.3%2B-green.svg)](https://pandas.pydata.org/)
+[![Google Gemini 2.5](https://img.shields.io/badge/Google-Gemini%202.5%20Flash-orange.svg)](https://ai.google.dev/gemini-api/docs)
+[![Matplotlib](https://img.shields.io/badge/Matplotlib-3.4%2B-yellow.svg)](https://matplotlib.org/stable/users/index.html)
+[![Seaborn](https://img.shields.io/badge/Seaborn-0.11%2B-purple.svg)](https://seaborn.pydata.org/)
+[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.0%2B-red.svg)](https://scikit-learn.org/stable/)
+[![Statsmodels](https://img.shields.io/badge/Statsmodels-0.12%2B-blueviolet.svg)](https://www.statsmodels.org/stable/index.html)
+[![License: MIT](https://img.shields.io/badge/License-MIT-gray.svg)](https://opensource.org/licenses/MIT)
 
 `datashadric` provides a collection of well-organized modules for common data science tasks, from data cleaning and exploration to machine learning model building, unsupervised and supervised classification and statistical analysis and testing. The package is designed with readability and ease-of-use in mind, making complex data science workflows more accessible and easier to write for end-use analysts.
 
