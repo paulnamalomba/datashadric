@@ -5,7 +5,7 @@
   - SESKA Computational Engineer<br>
   - Software Developer<br>
   - PhD Candidate (Civil Engineering Spec. Computational and Applied Mechanics)<br>
-**Version**: 0.2.3 (Nov 2025)<br>
+**Version**: 0.3.0 (Jun 2025)<br>
 **Contact**: [kabwenzenamalomba@gmail.com](kabwenzenamalomba@gmail.com)
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
@@ -19,6 +19,25 @@
 
 `datashadric` provides a collection of well-organized modules for common data science tasks, from data cleaning and exploration to machine learning model building, unsupervised and supervised classification and statistical analysis and testing. The package is designed with readability and ease-of-use in mind, making complex data science workflows more accessible and easier to write for end-use analysts.
 
+## Contents
+
+- [datashadric — Python Toolkit for Machine Learning and Advanced Data Analytics](#datashadric---python-toolkit-for-machine-learning-and-advanced-data-analytics)
+  - [Contents](#contents)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+  - [Module Overview](#module-overview)
+  - [Dependencies](#dependencies)
+  - [Testing](#testing)
+  - [Examples](#examples)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Support](#support)
+  - [Build, Release & Deploy Instructions (v0.3.0)](#build-release--deploy-instructions-v030)
+  - [Changelog](#changelog)
+
+---
+
 ## Features
 
 - **Machine Learning**: Model training, data ensembling (sampling), model evaluation, and prediction tools.
@@ -26,6 +45,7 @@
 - **Data Manipulation**: Pandas-based utilities for cleaning and transforming data, getting data descriptive characteristics.
 - **Statistical Analysis**: Hypothesis testing, confidence intervals, normal, Bayesian and Gaussian distribution checks. Also some sampling stuff included. 
 - **Visualization**: Plotting functions for data exploration, visualization and presentation.
+- **Multiple Imputation**: MICE (PMM, norm, logistic regression), Random Forest, and KNN imputation for handling missing data.
 
 ## Installation
 
@@ -59,6 +79,7 @@ from datashadric.stochastics import df_gaussian_checks
 from datashadric.plotters import df_boxplotter
 from datashadric.aiagents import ai_analyze_plot_data_with_vision
 from datashadric.aiagents import ai_data_insights_summary
+from datashadric.imputation import df_mice_impute_pmm, df_impute_knn
 
 # load your data
 df = pd.read_csv('your_data.csv')
@@ -110,6 +131,14 @@ ols_results = lr_ols_model(df, 'dependent_var', ['independent_var1', 'independen
 - `df_histplotter()`: Histogram creation with customization
 - `df_scatterplotter()`: Scatter plot generation
 - `df_pairplot()`: Comprehensive pairwise plotting
+
+### `imputation` - Multiple Imputation Methods *(new in v0.3.0)*
+- `df_mice_impute_pmm()`: MICE with Predictive Mean Matching — imputes from observed donor values
+- `df_mice_impute_norm()`: MICE with Bayesian Linear Regression (norm) — smooth posterior-predictive draws
+- `df_mice_impute_logistic()`: MICE with Logistic Regression for binary/categorical columns
+- `df_impute_random_forest()`: Iterative Random Forest imputation (missForest-style)
+- `df_impute_knn()`: K-Nearest Neighbours imputation
+- `df_impute_summary()`: Before/after comparison of NaN counts and descriptive statistics
 
 ## Dependencies
 
@@ -204,7 +233,85 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any problems or have questions, please file an issue on the [GitHub repository](https://github.com/paulnamalomba/datashadric.git).
 
+## Build, Release & Deploy Instructions (v0.3.0)
+
+The full build-to-publish workflow is captured in `datashadric-build-test-upload_instructions.ps1` (PowerShell)
+and `datashadric-build-test-upload_instructions.bat` (CMD).  The steps below can be run manually in order.
+
+### 1. Clean previous build artefacts
+```bash
+# Remove old distributions and egg-info
+rm -rf dist/ build/ src/*.egg-info
+```
+
+### 2. Build the package
+```bash
+python -m build
+```
+This produces `.tar.gz` and `.whl` files in the `dist/` directory.
+
+### 3. Validate the build
+```bash
+twine check dist/*
+```
+Ensure the output reports no errors or warnings.
+
+### 4. Quick smoke-test
+```python
+import datashadric
+print(datashadric.__version__)   # should print 0.3.0
+```
+
+### 5. Run the test suite
+```bash
+python -m pytest tests/ -v --cov=datashadric --cov-report=term-missing
+```
+
+### 6. Publish to TestPyPI (optional, recommended)
+```bash
+twine upload --repository testpypi dist/*
+pip install --index-url https://test.pypi.org/simple/ datashadric==0.3.0
+```
+
+### 7. Publish to PyPI
+```bash
+twine upload --repository pypi dist/*
+```
+
+### 8. Install locally in editable mode
+```bash
+pip install -e .
+```
+
+### 9. Tag the release in Git
+```bash
+git add .
+git commit -m "Release v0.3.0 — multiple imputation methods"
+git tag -a v0.3.0 -m "v0.3.0"
+git push origin main --tags
+```
+
+> **Note**: If you use the `Manage-GitHub` PowerShell function, you can replace steps 8-9 with:
+> ```powershell
+> Manage-GitHub -commitMessage "Release v0.3.0" -TagName v0.3.0 -TagMessage "v0.3.0"
+> ```
+
+---
+
 ## Changelog
+
+### Version: 0.3.0
+### Release Date: June 2025
+- **New module: `imputation`** — comprehensive multiple imputation methods for handling missing data
+  - MICE with Predictive Mean Matching (PMM)
+  - MICE with Bayesian Linear Regression (norm)
+  - MICE with Logistic Regression for binary/categorical columns
+  - Iterative Random Forest imputation (missForest-style, supports numeric and categorical)
+  - K-Nearest Neighbours (KNN) imputation
+  - Imputation summary utility for before/after comparison
+- Added `MODULE_NOTES.md` in `src/datashadric/` documenting every module and function
+- Added build, release, and deploy instructions to README
+- Version bump to 0.3.0
 
 ### Version: 0.1.0 
 ### Release Date: 2 October 2025

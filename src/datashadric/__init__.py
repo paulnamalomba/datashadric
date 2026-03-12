@@ -13,6 +13,7 @@ Modules:
 - dataframing: Data manipulation and cleaning utilities
 - stochastics: Statistical analysis and hypothesis testing
 - plotters: Visualization and plotting functions
+- imputation: Multiple imputation methods for handling missing data (MICE, Random Forest, KNN)
 
 Basic Usage:
 -----------
@@ -22,9 +23,10 @@ Basic Usage:
 >>> from datashadric.stochastics import df_gaussian_checks
 >>> from datashadric.plotters import df_boxplotter
 >>> from datashadric.aiagents import ai_generate_image
+>>> from datashadric.imputation import df_mice_impute_pmm
 """
 
-__version__ = "0.2.3"
+__version__ = "0.3.0"
 __author__ = "Paul Namlaomba (GitHub: diversecellar)"
 __email__ = "kabwenzenamalomba@gmail.com"
 
@@ -35,6 +37,7 @@ from . import dataframing
 from . import stochastics
 from . import plotters
 from . import aiagents
+from . import imputation
 
 # define what gets imported with "from datashadric import *"
 __all__ = [
@@ -43,5 +46,6 @@ __all__ = [
     'dataframing',
     'stochastics',
     'plotters',
-    'aiagents'
+    'aiagents',
+    'imputation'
 ]
