@@ -1,0 +1,25 @@
+datashadric v0.3.1 Release Notes
+Release Date: March 13, 2026
+===================================
+
+MAJOR CHANGES
+=============
+
+## 2026-03-13
+
+### Release Date: 12 March 2026 - 13 March 2026
+- **New module: `imputation`** — comprehensive multiple imputation methods for handling missing data
+  - MICE with Predictive Mean Matching (PMM)
+  - MICE with Bayesian Linear Regression (norm)
+  - MICE with Logistic Regression for binary/categorical columns
+  - Iterative Random Forest imputation (missForest-style, supports numeric and categorical)
+  - K-Nearest Neighbours (KNN) imputation
+  - Imputation summary utility for before/after comparison
+- Added `MODULE_NOTES.md` in `src/datashadric/` documenting every module and function
+- Added build, release, and deploy instructions to README
+- Version bump to 0.3.0 and then 0.3.1 for minor fixes and documentation updates
+- Fixed README formatting and typos
+- Fixed broken anova function in `stochastics` module (was using wrong statsmodels submodules)
+- Fixed VIF calculation function in `stochastics` module to ensure it works correctly with pandas DataFrames and handles constant term properly
+- Fixed broken ols regression function in `regression` module (was using wrong statsmodels submodules)
+- Updated documentation in `MODULE_NOTES.md` for all modules, especially the new `imputation` module

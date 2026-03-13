@@ -16,6 +16,8 @@ from scipy import stats
 # statistical analysis imports
 from statsmodels.stats.outliers_influence import variance_inflation_factor as smvif
 import statsmodels.tools.tools as smtools
+import statsmodels.api as smapi
+import statsmodels.formula.api as smformulaapi
 import statsmodels.stats.multicomp as smmulti
 from statsmodels.tools.tools import add_constant as smac
 
@@ -119,10 +121,14 @@ def df_vif_calculation(df_name, col_list: list):
     # usage: df_vif_calculation(df, ['col1', 'col2', 'col3'])
     # input: df_name - pandas DataFrame, col_list - list of numerical column names
     # output: DataFrame with VIF values for each variable
+
     X = smtools.add_constant(df_name[col_list].dropna())
+    # Ensure X is a DataFrame (sometimes add_constant returns ndarray if input is ndarray)
+    if not isinstance(X, pd.DataFrame):
+        X = pd.DataFrame(X, columns=["const"] + list(col_list))
     vif_data = pd.DataFrame()
-    vif_data['Variable'] = X.columns
-    vif_data['VIF'] = [smvif(X.values, i) for i in range(X.shape[1])]
+    vif_data['Variable'] = list(X.columns)
+    vif_data['VIF'] = [smvif(X, i) for i in range(X.shape[1])]
 
     return vif_data
 
@@ -157,8 +163,8 @@ def df_anova_twoway(df_name, col_factor1, col_factor2, col_value):
     # input: df_name - pandas DataFrame, col_factor1 - first categorical column name, col_factor2 - second categorical column name, col_value - numerical column name
     # output: ANOVA table
     formula = f'{col_value} ~ C({col_factor1}) + C({col_factor2}) + C({col_factor1}):C({col_factor2})'
-    model = smtools.ols(formula, data=df_name).fit()
-    anova_table = smtools.anova_lm(model, typ=2)
+    model = smformulaapi.ols(formula, data=df_name).fit()
+    anova_table = smapi.stats.anova_lm(model, typ=2)
     print(anova_table)
     
     return anova_table

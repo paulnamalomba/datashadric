@@ -4,6 +4,7 @@ pyproject.toml
 src/datashadric/__init__.py
 src/datashadric/aiagents.py
 src/datashadric/dataframing.py
+src/datashadric/imputation.py
 src/datashadric/mlearning.py
 src/datashadric/plotters.py
 src/datashadric/regression.py

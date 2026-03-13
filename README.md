@@ -5,7 +5,7 @@
   - SESKA Computational Engineer<br>
   - Software Developer<br>
   - PhD Candidate (Civil Engineering Spec. Computational and Applied Mechanics)<br>
-**Version**: 0.3.0 (Jun 2025)<br>
+**Version**: 0.3.1 (Jun 2025)<br>
 **Contact**: [kabwenzenamalomba@gmail.com](kabwenzenamalomba@gmail.com)
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
@@ -33,7 +33,7 @@
   - [Contributing](#contributing)
   - [License](#license)
   - [Support](#support)
-  - [Build, Release & Deploy Instructions (v0.3.0)](#build-release--deploy-instructions-v030)
+  - [Build, Release & Deploy Instructions (v0.3.1)](#build-release--deploy-instructions-v030)
   - [Changelog](#changelog)
 
 ---
@@ -132,7 +132,7 @@ ols_results = lr_ols_model(df, 'dependent_var', ['independent_var1', 'independen
 - `df_scatterplotter()`: Scatter plot generation
 - `df_pairplot()`: Comprehensive pairwise plotting
 
-### `imputation` - Multiple Imputation Methods *(new in v0.3.0)*
+### `imputation` - Multiple Imputation Methods *(new in v0.3.1)*
 - `df_mice_impute_pmm()`: MICE with Predictive Mean Matching — imputes from observed donor values
 - `df_mice_impute_norm()`: MICE with Bayesian Linear Regression (norm) — smooth posterior-predictive draws
 - `df_mice_impute_logistic()`: MICE with Logistic Regression for binary/categorical columns
@@ -163,7 +163,7 @@ For running tests, you'll need to install additional packages:
 pip install pytest pytest-cov
 ```
 
-## Testing
+## Testing (Testing the app Modules)
 
 To run the test suite:
 
@@ -178,7 +178,7 @@ python -m pytest tests/ -v
 python -m pytest tests/ --cov=datashadric --cov-report=html --cov-report=term-missing
 ```
 
-## Examples
+## Examples (Applications of certain Data Science techniques)
 
 ### Data Cleaning and Exploration
 ```python
@@ -193,7 +193,8 @@ df_clean = df_drop_dupes(df)
 df_histplotter(df_clean, 'numeric_column', type_plot=0, bins=30)
 ```
 
-### Statistical Testing
+### Statistical Testing (testing data samples)
+
 ```python
 from datashadric.stochastics import df_gaussian_checks, df_calc_conf_interval
 
@@ -204,7 +205,8 @@ normality_test = df_gaussian_checks(df, 'measurement_column')
 ci = df_calc_conf_interval(df['measurement_column'], confidence=0.95)
 ```
 
-### Machine Learning Workflow
+### Machine Learning Workflows
+
 ```python
 from datashadric.mlearning import ml_naive_bayes_model, ml_naive_bayes_metrics
 
@@ -215,7 +217,7 @@ model, initial_metrics = ml_naive_bayes_model(df, 'target', test_size=0.3)
 detailed_metrics = ml_naive_bayes_metrics(model, X_test, y_test)
 ```
 
-## Contributing
+## Contributing to the Project
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
@@ -225,15 +227,17 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
+## Licensing & Copyright
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+The author retains all rights to the code and documentation in this repository. You are free to use, modify, and distribute the code as long as you comply with the terms of the MIT License.
 
-If you encounter any problems or have questions, please file an issue on the [GitHub repository](https://github.com/paulnamalomba/datashadric.git).
+## Have issues or questions?
 
-## Build, Release & Deploy Instructions (v0.3.0)
+If you encounter any problems or have questions, please file an issue on the [datashadric GitHub repository - Issues Page](https://github.com/paulnamalomba/datashadric/issues).
+
+## Build, Release & Deploy Instructions (v0.3.1)
 
 The full build-to-publish workflow is captured in `datashadric-build-test-upload_instructions.ps1` (PowerShell)
 and `datashadric-build-test-upload_instructions.bat` (CMD).  The steps below can be run manually in order.
@@ -259,7 +263,7 @@ Ensure the output reports no errors or warnings.
 ### 4. Quick smoke-test
 ```python
 import datashadric
-print(datashadric.__version__)   # should print 0.3.0
+print(datashadric.__version__) # should print 0.3.1 as of 13 March 2026
 ```
 
 ### 5. Run the test suite
@@ -270,7 +274,7 @@ python -m pytest tests/ -v --cov=datashadric --cov-report=term-missing
 ### 6. Publish to TestPyPI (optional, recommended)
 ```bash
 twine upload --repository testpypi dist/*
-pip install --index-url https://test.pypi.org/simple/ datashadric==0.3.0
+pip install --index-url https://test.pypi.org/simple/ datashadric==0.3.1
 ```
 
 ### 7. Publish to PyPI
@@ -286,22 +290,24 @@ pip install -e .
 ### 9. Tag the release in Git
 ```bash
 git add .
-git commit -m "Release v0.3.0 — multiple imputation methods"
-git tag -a v0.3.0 -m "v0.3.0"
+git commit -m "Release v0.3.1 — multiple imputation methods"
+git tag -a v0.3.1 -m "v0.3.1"
 git push origin main --tags
 ```
 
 > **Note**: If you use the `Manage-GitHub` PowerShell function, you can replace steps 8-9 with:
 > ```powershell
-> Manage-GitHub -commitMessage "Release v0.3.0" -TagName v0.3.0 -TagMessage "v0.3.0"
+> Manage-GitHub -commitMessage "Release v0.3.1" -TagName v0.3.1 -TagMessage "v0.3.1"
 > ```
 
 ---
 
 ## Changelog
 
-### Version: 0.3.0
-### Release Date: June 2025
+*Iterative Releases are usually the same release re-bundled with minor imporvements, hence they are grouped also below*
+
+### Version: 0.3.1 - 0.3.1 (Iterative Releases)
+### Release Date: 12 March 2026 - 13 March 2026
 - **New module: `imputation`** — comprehensive multiple imputation methods for handling missing data
   - MICE with Predictive Mean Matching (PMM)
   - MICE with Bayesian Linear Regression (norm)
@@ -311,33 +317,20 @@ git push origin main --tags
   - Imputation summary utility for before/after comparison
 - Added `MODULE_NOTES.md` in `src/datashadric/` documenting every module and function
 - Added build, release, and deploy instructions to README
-- Version bump to 0.3.0
+- Version bump to 0.3.1 and then 0.3.1 for minor fixes and documentation updates
+- Fixed README formatting and typos
+- Fixed broken anova function in `stochastics` module (was using wrong statsmodels submodules)
+- Fixed VIF calculation function in `stochastics` module to ensure it works correctly with pandas DataFrames and handles constant term properly
+- Fixed broken ols regression function in `regression` module (was using wrong statsmodels submodules)
+- Updated documentation in `MODULE_NOTES.md` for all modules, especially the new `imputation` module
 
-### Version: 0.1.0 
-### Release Date: 2 October 2025
-- Initial release
-- Core modules: mlearning, regression, dataframing, stochastics, plotters
-- Comprehensive documentation and examples
-- Minimal test coverage
-
-### Version: 0.1.1
-### Release Date: 3 October 2025
-- Supplemental release 
-- Additional functions for outlier detection
-- Additional functions for plotting (LOWESS meanline plotter)
-- Additional functions for data clustering based on k-means
-
-### Version: 0.1.2
-### Release Date: 6 October 2025
-- Enhanced dataframe utilities
-- New functions for index and column name retrieval
-- Improved documentation and examples
-
-### Version: 0.1.3
-### Release Date: 8 October 2025
-- Minor bug fixes
-- Added print statements for better process tracking in data processing functions
-- Added for stochastic and machine learning based outlier detectio adn removal
+### Version: 0.2.0 - 0.2.3 (Iterative Releases)
+### Release Date: 4 Novemeber 2025 - 10 November 2025
+- Added image annotation when detecting outliers using AI-assisted bounding box generation
+- Enhanced outlier detection and removal functions in data-processor module
+- Added use of AI agents to assist with data analysis and visualization tasks (needs user to store their API keys in system environment variables)
+- Added Apache Superset as an additional visualization dependency
+- Minor bug fixes and enhancements in dataframing and plotters modules
 - Updated documentation
 
 ### Version: 0.1.4
@@ -347,11 +340,29 @@ git push origin main --tags
 - Added user optionality for saving plots to files in plotters module
 - Updated documentation
 
-### Version: 0.2.3
-### Release Date: 10 November 2025
-- Added image annotation when detecting outliers using AI-assisted bounding box generation
-- Enhanced outlier detection and removal functions in data-processor module
-- Added use of AI agents to assist with data analysis and visualization tasks (needs user to store their API keys in system environment variables)
-- Added Apache Superset as an additional visualization dependency
-- Minor bug fixes and enhancements in dataframing and plotters modules
+### Version: 0.1.3
+### Release Date: 8 October 2025
+- Minor bug fixes
+- Added print statements for better process tracking in data processing functions
+- Added for stochastic and machine learning based outlier detectio adn removal
 - Updated documentation
+
+### Version: 0.1.2
+### Release Date: 6 October 2025
+- Enhanced dataframe utilities
+- New functions for index and column name retrieval
+- Improved documentation and examples
+
+### Version: 0.1.1
+### Release Date: 3 October 2025
+- Supplemental release 
+- Additional functions for outlier detection
+- Additional functions for plotting (LOWESS meanline plotter)
+- Additional functions for data clustering based on k-means
+
+### Version: 0.1.0 
+### Release Date: 2 October 2025
+- Initial release
+- Core modules: mlearning, regression, dataframing, stochastics, plotters
+- Comprehensive documentation and examples
+- Minimal test coverage
