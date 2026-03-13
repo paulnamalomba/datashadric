@@ -7,7 +7,7 @@
   - Software Developer<br>
   - PhD Candidate (Civil Engineering Spec. Computational and Applied Mechanic <br>
 
-**Version**: 0.3.1 (13 March 2025)<br>
+**Version**: 0.3.2 (13 March 2025)<br>
 **Contact**: [kabwenzenamalomba@gmail.com](kabwenzenamalomba@gmail.com)<br>
 
 ---
@@ -37,7 +37,7 @@
   - [Contributing](#contributing)
   - [License](#license)
   - [Support](#support)
-  - [Build, Release & Deploy Instructions (v0.3.1)](#build-release--deploy-instructions-v030)
+  - [Build, Release & Deploy Instructions (v0.3.2)](#build-release--deploy-instructions-v030)
   - [Changelog](#changelog)
 
 ---
@@ -136,7 +136,7 @@ ols_results = lr_ols_model(df, 'dependent_var', ['independent_var1', 'independen
 - `df_scatterplotter()`: Scatter plot generation
 - `df_pairplot()`: Comprehensive pairwise plotting
 
-### `imputation` - Multiple Imputation Methods *(new in v0.3.1)*
+### `imputation` - Multiple Imputation Methods *(new in v0.3.2)*
 - `df_mice_impute_pmm()`: MICE with Predictive Mean Matching — imputes from observed donor values
 - `df_mice_impute_norm()`: MICE with Bayesian Linear Regression (norm) — smooth posterior-predictive draws
 - `df_mice_impute_logistic()`: MICE with Logistic Regression for binary/categorical columns
@@ -241,7 +241,7 @@ The author retains all rights to the code and documentation in this repository. 
 
 If you encounter any problems or have questions, please file an issue on the [datashadric GitHub repository - Issues Page](https://github.com/paulnamalomba/datashadric/issues).
 
-## Build, Release & Deploy Instructions (v0.3.1)
+## Build, Release & Deploy Instructions (v0.3.2)
 
 The full build-to-publish workflow is captured in `datashadric-build-test-upload_instructions.ps1` (PowerShell)
 and `datashadric-build-test-upload_instructions.bat` (CMD).  The steps below can be run manually in order.
@@ -267,7 +267,7 @@ Ensure the output reports no errors or warnings.
 ### 4. Quick smoke-test
 ```python
 import datashadric
-print(datashadric.__version__) # should print 0.3.1 as of 13 March 2026
+print(datashadric.__version__) # should print 0.3.2 as of 13 March 2026
 ```
 
 ### 5. Run the test suite
@@ -278,7 +278,7 @@ python -m pytest tests/ -v --cov=datashadric --cov-report=term-missing
 ### 6. Publish to TestPyPI (optional, recommended)
 ```bash
 twine upload --repository testpypi dist/*
-pip install --index-url https://test.pypi.org/simple/ datashadric==0.3.1
+pip install --index-url https://test.pypi.org/simple/ datashadric==0.3.2
 ```
 
 ### 7. Publish to PyPI
@@ -294,14 +294,14 @@ pip install -e .
 ### 9. Tag the release in Git
 ```bash
 git add .
-git commit -m "Release v0.3.1 — multiple imputation methods"
-git tag -a v0.3.1 -m "v0.3.1"
+git commit -m "Release v0.3.2 — multiple imputation methods"
+git tag -a v0.3.2 -m "v0.3.2"
 git push origin main --tags
 ```
 
 > **Note**: If you use the `Manage-GitHub` PowerShell function, you can replace steps 8-9 with:
 > ```powershell
-> Manage-GitHub -commitMessage "Release v0.3.1" -TagName v0.3.1 -TagMessage "v0.3.1"
+> Manage-GitHub -commitMessage "Release v0.3.2" -TagName v0.3.2 -TagMessage "v0.3.2"
 > ```
 
 ---
@@ -310,7 +310,7 @@ git push origin main --tags
 
 *Iterative Releases are usually the same release re-bundled with minor imporvements, hence they are grouped also below*
 
-### Version: 0.3.1 - 0.3.1 (Iterative Releases)
+### Version: 0.3.0 - 0.3.2 (Iterative Releases)
 ### Release Date: 12 March 2026 - 13 March 2026
 - **New module: `imputation`** — comprehensive multiple imputation methods for handling missing data
   - MICE with Predictive Mean Matching (PMM)
@@ -321,7 +321,7 @@ git push origin main --tags
   - Imputation summary utility for before/after comparison
 - Added `MODULE_NOTES.md` in `src/datashadric/` documenting every module and function
 - Added build, release, and deploy instructions to README
-- Version bump to 0.3.1 and then 0.3.1 for minor fixes and documentation updates
+- Version bump to 0.3.2 and then 0.3.2 for minor fixes and documentation updates
 - Fixed README formatting and typos
 - Fixed broken anova function in `stochastics` module (was using wrong statsmodels submodules)
 - Fixed VIF calculation function in `stochastics` module to ensure it works correctly with pandas DataFrames and handles constant term properly
