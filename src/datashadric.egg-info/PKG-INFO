@@ -56,7 +56,7 @@ Requires-Dist: seaborn
 Requires-Dist: scipy
 Requires-Dist: statsmodels
 Requires-Dist: plotly
-Requires-Dist: google-generativeai
+Requires-Dist: google-genai
 Provides-Extra: dev
 Requires-Dist: pytest>=6.0; extra == "dev"
 Requires-Dist: pytest-cov>=2.0; extra == "dev"
@@ -80,7 +80,7 @@ Dynamic: license-file
   - Software Developer<br>
   - PhD Candidate (Civil Engineering Spec. Computational and Applied Mechanic <br>
 
-**Version**: 0.3.3 (13 March 2025)<br>
+**Version**: 0.3.3 (10 April 2026)<br>
 **Contact**: [kabwenzenamalomba@gmail.com](kabwenzenamalomba@gmail.com)<br>
 
 ---

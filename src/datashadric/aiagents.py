@@ -7,6 +7,7 @@ Comprehensive collection of AI agent utilities for data analysis, natural langua
 # OS and environment imports
 import importlib
 import io
+import json
 import os
 
 # Typing and formatting imports
@@ -83,31 +84,73 @@ def _load_image(image_path: str) -> Any:
 
 def _default_outlier_prompt() -> str:
     return (
-        "You are an expert Data Scientist, and you are given a task to Identify and describe any outlier or anomalous points in this plot, we want to have well-defined data, that fits trends that are easy to visualise inorder to aid in gaining insights from the experiment. "
-        "The outliers are often as follows: "
-        "1) points that deviate significantly from the overall trend or pattern in the data, and/or "
-        "2) points that lie on a purely vertical trend line usually at the end of the plot (towards the right of the image), and/or "
-        "3) sometimes, the outliers are small (tight) point clouds that occur some distance from the rest of the scatter trend. "
-        "In addition, assess other types of outliers in analytical fashion as per your knowledge as a data scientist. "
-        "Wherever possible, estimate their coordinates or describe their location, such that it is easy to either 1) create anomalous point clouds in the form of boundary boxes for the points that are anomalous, so as to remove them in bulk and/or 2) identify each point by it's coordinates and thus make it removable from the dataset. "
-        "In your output, be concise and only focus on the anomalies. In fact give me the bounding boxes in the Example format: boxes = [(x1, y1, x2, y2), ...] separated by a line skip before you start giving that portion of output, this will allows me to directly look for it and get data from it"
+        "You are an expert Data Scientist performing visual data cleaning on a plotted dataset. Your task is to identify and mathematically bound anomalous data regions in the provided chart using the chart's own data coordinates rather than pixel coordinates. "
+        "The analysis must remain domain-agnostic: infer context from the axis labels, scale, and visible trend instead of assuming a specific field such as structural testing, finance, biology, or industrial monitoring. "
+        "Typical anomalies may include: "
+        "1) disconnected points or low-value floor scatter that sit away from the main trend, "
+        "2) saturation walls or edge clusters where one variable appears clipped while logging continued, "
+        "3) small rogue clusters separated from the dominant manifold, and "
+        "4) abrupt discontinuities, jumps, or clearly non-physical regions relative to the main pattern in the plot. "
+        "Do not guess blindly. Process the image methodically: identify the axes and approximate scale, briefly describe the valid manifold or dominant trend, then localize anomalous regions and estimate a slightly buffered bounding box around each anomalous cluster in graph data coordinates. "
+        "Provide your final output exclusively as valid JSON with keys reasoning and boxes. The reasoning value must be a concise string explaining the anomaly localization logic. The boxes value must be a list of four-float lists in the form [x_min, y_min, x_max, y_max]. Do not include markdown formatting or any extra text outside the JSON object."
     )
 
 
-def _extract_boxes(description: str):
-    match = re.search(r"boxes\s*=\s*\[(.*?)\]", description, re.DOTALL)
-    if not match:
-        print("\n✗ No boxes found in AI output, using default")
-        return [(100, 150, 120, 170)]
+def _normalize_boxes(raw_boxes: Any) -> list[tuple[float, float, float, float]]:
+    normalized_boxes = []
+    for box in raw_boxes:
+        if not isinstance(box, (list, tuple)) or len(box) != 4:
+            continue
+        try:
+            normalized_boxes.append(tuple(float(value) for value in box))
+        except (TypeError, ValueError):
+            continue
+    return normalized_boxes
 
-    boxes_str = match.group(1)
-    try:
-        boxes = ast.literal_eval(f"[{boxes_str}]")
-        print(f"\n✓ Extracted boxes from AI output: {boxes}")
-        return boxes
-    except Exception as error:
-        print(f"\n✗ Failed to parse boxes: {error}")
-        return [(100, 150, 120, 170)]
+
+def _extract_analysis_payload(description: str) -> dict[str, Any]:
+    cleaned_description = description.strip()
+    if cleaned_description.startswith("```"):
+        cleaned_description = re.sub(r"^```(?:json)?\s*", "", cleaned_description)
+        cleaned_description = re.sub(r"\s*```$", "", cleaned_description)
+
+    json_candidates = [cleaned_description]
+    json_match = re.search(r"\{.*\}", cleaned_description, re.DOTALL)
+    if json_match:
+        json_candidates.append(json_match.group(0))
+
+    for candidate in json_candidates:
+        try:
+            payload = json.loads(candidate)
+        except json.JSONDecodeError:
+            continue
+
+        if isinstance(payload, dict):
+            boxes = _normalize_boxes(payload.get("boxes", []))
+            reasoning = payload.get("reasoning")
+            if boxes:
+                print(f"\n✓ Extracted JSON analysis payload with {len(boxes)} box(es)")
+                return {
+                    "reasoning": reasoning.strip() if isinstance(reasoning, str) else None,
+                    "boxes": boxes,
+                }
+
+    match = re.search(r"boxes\s*=\s*\[(.*?)\]", description, re.DOTALL)
+    if match:
+        boxes_str = match.group(1)
+        try:
+            boxes = _normalize_boxes(ast.literal_eval(f"[{boxes_str}]"))
+            if boxes:
+                print(f"\n✓ Extracted legacy boxes from AI output: {boxes}")
+                return {"reasoning": None, "boxes": boxes}
+        except Exception as error:
+            print(f"\n✗ Failed to parse legacy boxes: {error}")
+
+    print("\n✗ No valid JSON or legacy boxes found in AI output, using default")
+    return {
+        "reasoning": None,
+        "boxes": [(100.0, 150.0, 120.0, 170.0)],
+    }
 
 
 def _analyze_plot_with_boxes(
@@ -144,7 +187,11 @@ def _analyze_plot_with_boxes(
     description = (response.text or "").strip()
     print("AI analysis:\n", description)
 
-    boxes = _extract_boxes(description)
+    analysis_payload = _extract_analysis_payload(description)
+    reasoning = analysis_payload["reasoning"]
+    boxes = analysis_payload["boxes"]
+    if reasoning:
+        print("AI reasoning:\n", reasoning)
     if boxes:
         points_removed = 0
         print(f"  Original dataset: {len(df)} rows")

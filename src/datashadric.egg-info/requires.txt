@@ -7,7 +7,7 @@ seaborn
 scipy
 statsmodels
 plotly
-google-generativeai
+google-genai
 
 [dev]
 pytest>=6.0
