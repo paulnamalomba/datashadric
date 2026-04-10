@@ -32,4 +32,4 @@ sphinx-rtd-theme
 # AI agent integration (optional)
 openai
 anthropic
-google-generativeai
+google

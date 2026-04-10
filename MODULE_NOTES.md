@@ -1,5 +1,5 @@
 # datashadric — Module Reference Notes
-**Package version**: 0.3.2  
+**Package version**: 0.3.3  
 **Location**: `src/datashadric/`
 
 This document provides a concise reference for every module in the `datashadric` package, listing each
@@ -16,7 +16,7 @@ public function alongside a brief description of what it does and its key parame
   - [`regression.py` — Regression Analysis \& Diagnostics](#regressionpy--regression-analysis--diagnostics)
   - [`plotters.py` — Visualisation](#plotterspy--visualisation)
   - [`aiagents.py` — AI-Assisted Analysis](#aiagentspy--ai-assisted-analysis)
-  - [`imputation.py` — Multiple Imputation Methods *(new in v0.3.2)*](#imputationpy--multiple-imputation-methods-new-in-v030)
+  - [`imputation.py` — Multiple Imputation Methods *(new in v0.3.1)*](#imputationpy--multiple-imputation-methods-new-in-v031)
 
 ---
 
@@ -183,6 +183,8 @@ argument to save the figure to disk.
 Multimodal AI functions powered by Google Gemini.  Requires the `GOOGLE_API_KEY` environment variable
 to be set.
 
+We are nowusing Gemma 4 for AI Vision.
+
 | Function | Summary |
 |---|---|
 | `ai_generate_text(prompt, model, max_tokens)` | Generate text from a Gemini model. |
@@ -193,7 +195,7 @@ to be set.
 
 ---
 
-## `imputation.py` — Multiple Imputation Methods *(new in v0.3.2)*
+## `imputation.py` — Multiple Imputation Methods *(new in v0.3.1)*
 Advanced imputation strategies for handling missing data in DataFrames.  Implements three families:
 MICE (chained equations), Random Forest, and K-Nearest Neighbours.
 

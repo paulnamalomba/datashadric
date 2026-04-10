@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "datashadric"
-version = "0.3.2"
+version = "0.3.4"
 description = "An exploratory data science toolkit for analysis, machine learning, multimodal ai agents for text and image processing, and visualization (Apache Superset)"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -42,7 +42,7 @@ dependencies = [
     "scipy",
     "statsmodels",
     "plotly",
-    "google-generativeai",
+    "google-genai",
 ]
 
 [project.optional-dependencies]

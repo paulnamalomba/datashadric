@@ -26,7 +26,7 @@ Basic Usage:
 >>> from datashadric.imputation import df_mice_impute_pmm
 """
 
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 __author__ = "Paul Namlaomba (GitHub: diversecellar)"
 __email__ = "kabwenzenamalomba@gmail.com"
 

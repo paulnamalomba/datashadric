@@ -1,0 +1,13 @@
+datashadric v0.3.3 Release Notes
+Release Date: April 10, 2026
+===================================
+
+MAJOR CHANGES
+=============
+
+## 2026-04-10
+
+### Release Date: 10 April 2026
+
+- Migrated to Pydantic v2.12.5 and pydantic-core v2.41.5 for improved data validation and performance
+- Migrated to google.genai no more google-generativeai for better support and features
