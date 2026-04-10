@@ -43,6 +43,7 @@ dependencies = [
     "statsmodels",
     "plotly",
     "google-genai",
+    "Unidecode",
 ]
 
 [project.optional-dependencies]

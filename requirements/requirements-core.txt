@@ -8,3 +8,4 @@ seaborn
 scipy
 statsmodels
 plotly
+Unidecode

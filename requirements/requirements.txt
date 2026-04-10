@@ -7,6 +7,7 @@ matplotlib
 seaborn
 scipy
 statsmodels
+Unidecode
 
 # Additional visualization
 plotly

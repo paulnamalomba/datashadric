@@ -57,6 +57,7 @@ Requires-Dist: scipy
 Requires-Dist: statsmodels
 Requires-Dist: plotly
 Requires-Dist: google-genai
+Requires-Dist: Unidecode
 Provides-Extra: dev
 Requires-Dist: pytest>=6.0; extra == "dev"
 Requires-Dist: pytest-cov>=2.0; extra == "dev"

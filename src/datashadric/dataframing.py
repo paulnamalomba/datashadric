@@ -6,11 +6,15 @@ Comprehensive collection of pandas and numpy utilities for data manipulation and
 
 # standard library imports
 import re
+import unicodedata
 
 # third-party data science imports
 import pandas as pd
 import numpy as np
-import unidecode
+try:
+    import unidecode
+except ImportError:
+    unidecode = None
 
 
 def df_load_dataset(excel_path: str, data_separator: str = None, header: int = 0):
@@ -277,7 +281,10 @@ def remove_unicode(str_target: str):
     # input: str_target - input string
     # output: string with unicode characters replaced by closest ASCII equivalent
     try:
-        clean_string = unidecode.unidecode(str_target)
+        if unidecode is not None:
+            clean_string = unidecode.unidecode(str_target)
+        else:
+            clean_string = unicodedata.normalize("NFKD", str(str_target)).encode("ascii", "ignore").decode("ascii")
         return clean_string
     except Exception as e:
         print(f"Error cleaning unicode: {e}")
